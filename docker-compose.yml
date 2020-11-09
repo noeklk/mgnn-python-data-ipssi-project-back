@@ -6,6 +6,8 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_USER: 'root'
+    ports:
+      - "8081:3306"
     volumes:
       - mysql-volume:/var/lib/mysql
 
@@ -13,7 +15,7 @@ services:
     container_name: phpmyadmin-ct
     image: phpmyadmin/phpmyadmin
     ports:
-        - "8081:80"
+        - "8080:80"
     depends_on:
         - db
     environment:

@@ -5,3 +5,4 @@ jupyter
 mysql
 mysql-connector
 mysql-connector-python
+PyMySQL

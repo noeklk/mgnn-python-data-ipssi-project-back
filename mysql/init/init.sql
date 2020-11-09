@@ -1,9 +1,5 @@
--- CREATE USER docker;
--- CREATE DATABASE docker;
--- GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
--- psql -c "USE docker";
-
-
+CREATE DATABASE test;
+USE test;
 CREATE TABLE utilisateur
 (
     id INT PRIMARY KEY NOT NULL,

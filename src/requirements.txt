@@ -1,2 +1,7 @@
 Flask
 python-dotenv
+pandas
+jupyter
+mysql
+mysql-connector
+mysql-connector-python

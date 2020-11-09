@@ -1,42 +1,24 @@
-version: '3.7'
+version: '3.6'
 services:
-  # web:
-  #   container_name: python-ct
-  #   build: .
-  #   depends_on:
-  #     - postgres
-  #   ports:
-  #     - "8081:80"
-  #   environment:
-  #     DATABASE_URL: postgres://root@postgres/main
-    
-  postgres:
-    restart: always
-    container_name: postgres-ct
-    image: postgres:9.6.2-alpine
+  db:
+    container_name: mysql-ct
+    image: mysql:5
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: 'root'
     volumes:
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - db-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: main
-    
-  pgadmin:
-    container_name: pgadmin-ct
-    image: dpage/pgadmin4:4.18
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: root@root.com
-      PGADMIN_DEFAULT_PASSWORD: root
-      PGADMIN_LISTEN_PORT: 80
+      - mysql-volume:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin-ct
+    image: phpmyadmin/phpmyadmin
     ports:
-      - 8080:80
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    links:
-      - postgres:pgsql-server
+        - "8080:80"
+    depends_on:
+        - db
+    environment:
+      PMA_HOST: db
+
       
 volumes:
-  db-data:
-  pgadmin-data:
+  mysql-volume:

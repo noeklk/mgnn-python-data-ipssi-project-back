@@ -1,17 +1,14 @@
 version: '3.7'
 services:
-  web:
-    container_name: python-ct
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    depends_on:
-      - postgres
-    volumes:
-      - .:/src
-    ports:
-      - "8000:8000"
-    environment:
-      DATABASE_URL: postgres://root-pg@postgres/main
+  # web:
+  #   container_name: python-ct
+  #   build: .
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #     DATABASE_URL: postgres://root@postgres/main
     
   postgres:
     restart: always

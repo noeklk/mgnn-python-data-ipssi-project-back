@@ -1,6 +1,6 @@
 Flask
 python-dotenv
-numpy
+numpy==1.19.3
 pandas
 jupyter
 mysql
@@ -8,3 +8,4 @@ mysql-connector
 mysql-connector-python
 PyMySQL
 matplotlib
+sqlalchemy

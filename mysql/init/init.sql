@@ -1,17 +1,13 @@
-CREATE DATABASE IF NOT EXISTS test;
-USE test;
+CREATE DATABASE IF NOT EXISTS plane-analytics;
+USE plane-analytics;
 
-CREATE TABLE IF NOT EXISTS planes
+DROP TABLE IF EXISTS `planes`;
+DROP TABLE IF EXISTS `flight`;
+
+CREATE TABLE planes
 (
     id INT PRIMARY KEY NOT NULL,
-    tailnum VARCHAR(50),
-    year VARCHAR(50)
+    tailnum VARCHAR(6),
+    `type` VARCHAR(30),
+    `year` YEAR
 );
-
--- CREATE TABLE IF NOT EXISTS flight
--- (
---     id INT PRIMARY KEY NOT NULL,
---     aeroport_depart VARCHAR(50),
---     aeroport_arrive VARCHAR(50),
---     plane_id int FOREIGN KEY REFERENCES plane(id)
--- );

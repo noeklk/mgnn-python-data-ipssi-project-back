@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS plane-analytics;
-USE plane-analytics;
+CREATE DATABASE IF NOT EXISTS `plane-analytics`;
+USE `plane-analytics`;
 
 DROP TABLE IF EXISTS `planes`;
 DROP TABLE IF EXISTS `flight`;
@@ -11,3 +11,6 @@ CREATE TABLE planes
     `type` VARCHAR(30),
     `year` YEAR
 );
+
+    -- manufacturer VARCHAR(50),
+    -- model VARCHAR(20)

@@ -1,20 +1,15 @@
-CREATE DATABASE IF NOT EXISTS `airport-analytics` CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `airport-analytics` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `airport-analytics`;
-
-DROP TABLE IF EXISTS `planes`;
-DROP TABLE IF EXISTS `flights`;
-DROP TABLE IF EXISTS `airports`;
-DROP TABLE IF EXISTS `airlines`;
 
 CREATE TABLE airlines
 (
-    carrier VARCHAR(2) PRIMARY KEY NOT NULL,
+    carrier VARCHAR(2) PRIMARY KEY,
     `name` VARCHAR(50)
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+);
 
 CREATE TABLE planes
 (
-    tailnum VARCHAR(6) PRIMARY KEY NOT NULL,
+    tailnum VARCHAR(6) PRIMARY KEY,
     `type` VARCHAR(30),
     `year` SMALLINT,
     manufacturer VARCHAR(50),
@@ -23,21 +18,8 @@ CREATE TABLE planes
     seats SMALLINT,
     speed SMALLINT,
     engine VARCHAR(30),
-    carrier VARCHAR(2),
-    FOREIGN KEY (carrier) REFERENCES airlines (`carrier`)
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-CREATE TABLE airports
-(
-    faa VARCHAR(3) PRIMARY KEY NOT NULL,
-    `name` VARCHAR(50),
-    lat FLOAT,
-    lon FLOAT,
-    alt SMALLINT,
-    tz SMALLINT,
-    dst CHAR,
-    tzone VARCHAR(30)
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+    carrier VARCHAR(2)
+);
 
 CREATE TABLE flights
 (
@@ -59,9 +41,20 @@ CREATE TABLE flights
     distance SMALLINT,
     hour TINYINT,
     minute TINYINT,
-    time_hour DATETIME,
-    FOREIGN KEY (tailnum) REFERENCES planes (tailnum)
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+    time_hour DATETIME
+);
+
+CREATE TABLE airports
+(
+    faa VARCHAR(3) PRIMARY KEY NOT NULL,
+    `name` VARCHAR(50),
+    lat FLOAT,
+    lon FLOAT,
+    alt SMALLINT,
+    tz SMALLINT,
+    dst CHAR,
+    tzone VARCHAR(30)
+);
 
 CREATE TABLE weather
 (
@@ -81,20 +74,13 @@ CREATE TABLE weather
     visib FLOAT,
     time_hour DATETIME,
     PRIMARY KEY (`year`, `month`, `day`, hour, origin),
-    faa VARCHAR(3),
-    FOREIGN KEY (faa) REFERENCES airports (faa)
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+    faa VARCHAR(3)
+);
 
 CREATE TABLE airline_airport
 (
     id INT NOT NULL AUTO_INCREMENT,
     airline_carrier VARCHAR(2) NOT NULL,
     airport_faa VARCHAR(3) NOT NULL,
-    PRIMARY KEY (id, airline_carrier, airport_faa),
-    CONSTRAINT `constr_airline_airport_airline_fk` 
-		FOREIGN KEY `airline_fk` (airline_carrier) REFERENCES airlines (carrier)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `constr_airline_airport_airport_fk` 
-		FOREIGN KEY `airport_fk` (airport_faa) REFERENCES airports (faa)
-        ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+    PRIMARY KEY (id, airline_carrier, airport_faa)
+);

@@ -1,0 +1,9 @@
+    --[FLIGHTS]FOREIGN KEY (tailnum) REFERENCES planes (tailnum)
+    --[PLANES]FOREIGN KEY (carrier) REFERENCES airlines (`carrier`)
+    --[WEATHER]FOREIGN KEY (faa) REFERENCES airports (faa)
+    -- CONSTRAINT `constr_airline_airport_airline_fk` 
+	-- 	FOREIGN KEY `airline_fk` (airline_carrier) REFERENCES airlines (carrier)
+    --     ON DELETE CASCADE ON UPDATE CASCADE,
+	-- CONSTRAINT `constr_airline_airport_airport_fk` 
+	-- 	FOREIGN KEY `airport_fk` (airport_faa) REFERENCES airports (faa)
+    --     ON DELETE CASCADE ON UPDATE CASCADE

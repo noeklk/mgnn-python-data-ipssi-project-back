@@ -13,7 +13,7 @@ add_constraint_airport_airline_airport = text("""ALTER TABLE airline_airport ADD
 
 with engine.connect() as con:
     con.execute(add_fk_flights)
-    con.execute(add_fk_planes)
-    con.execute(add_fk_weather)
-    con.execute(add_constraint_airport_airline_airline)
-    con.execute(add_constraint_airport_airline_airport)
+    # con.execute(add_fk_planes)
+    # con.execute(add_fk_weather)
+    # con.execute(add_constraint_airport_airline_airline)
+    # con.execute(add_constraint_airport_airline_airport)

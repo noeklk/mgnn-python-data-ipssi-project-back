@@ -1,14 +1,17 @@
-CREATE DATABASE test;
+CREATE DATABASE IF NOT EXISTS test;
 USE test;
-CREATE TABLE utilisateur
+
+CREATE TABLE IF NOT EXISTS planes
 (
     id INT PRIMARY KEY NOT NULL,
-    nom VARCHAR(100),
-    prenom VARCHAR(100),
-    email VARCHAR(255),
-    date_naissance DATE,
-    pays VARCHAR(255),
-    ville VARCHAR(255),
-    code_postal VARCHAR(5),
-    nombre_achat INT
-)
+    tailnum VARCHAR(50),
+    year VARCHAR(50)
+);
+
+-- CREATE TABLE IF NOT EXISTS flight
+-- (
+--     id INT PRIMARY KEY NOT NULL,
+--     aeroport_depart VARCHAR(50),
+--     aeroport_arrive VARCHAR(50),
+--     plane_id int FOREIGN KEY REFERENCES plane(id)
+-- );

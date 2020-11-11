@@ -50,13 +50,14 @@ CREATE TABLE weather
     pressure FLOAT,
     visib FLOAT,
     time_hour DATETIME,
-    PRIMARY KEY (`year`, `month`, `day`, hour, origin)
+    PRIMARY KEY (`year`, `month`, `day`, hour, origin),
+    FOREIGN KEY origin_fk(origin) REFERENCES airports(faa)
 );
 
-CREATE INDEX `month_index` ON weather (`month`);
-CREATE INDEX `day_index` ON weather (`day`);
-CREATE INDEX `hour_index` ON weather (`hour`);
-CREATE INDEX `origin_index` ON weather (`origin`);
+CREATE INDEX `month_index` ON weather(`month`);
+CREATE INDEX `day_index` ON weather(`day`);
+CREATE INDEX `hour_index` ON weather(`hour`);
+CREATE INDEX `origin_index` ON weather(`origin`);
 
 CREATE TABLE flights
 (
@@ -79,15 +80,15 @@ CREATE TABLE flights
     hour TINYINT,
     minute TINYINT,
     time_hour DATETIME,
-    FOREIGN KEY tailnum_fk(tailnum) REFERENCES planes (tailnum),
-    FOREIGN KEY carrier_fk(carrier) REFERENCES airlines (carrier),
-    FOREIGN KEY dest_fk(dest) REFERENCES airports (faa),
-    FOREIGN KEY origin_airports_fk(origin) REFERENCES airports (faa),
-    FOREIGN KEY year_fk(`year`) REFERENCES weather (`year`),
-    FOREIGN KEY month_fk(`month`) REFERENCES weather (`month`),
-    FOREIGN KEY day_fk(`day`) REFERENCES weather (`day`),
-    FOREIGN KEY hour_fk(hour) REFERENCES weather (hour),
-    FOREIGN KEY origin_weather_fk(origin) REFERENCES weather (origin)
+    FOREIGN KEY tailnum_fk(tailnum) REFERENCES planes(tailnum),
+    FOREIGN KEY carrier_fk(carrier) REFERENCES airlines(carrier),
+    FOREIGN KEY dest_fk(dest) REFERENCES airports(faa),
+    FOREIGN KEY origin_airports_fk(origin) REFERENCES airports(faa),
+    FOREIGN KEY year_fk(`year`) REFERENCES weather(`year`),
+    FOREIGN KEY month_fk(`month`) REFERENCES weather(`month`),
+    FOREIGN KEY day_fk(`day`) REFERENCES weather(`day`),
+    FOREIGN KEY hour_fk(hour) REFERENCES weather(hour),
+    FOREIGN KEY origin_weather_fk(origin) REFERENCES weather(origin)
 );
 
 CREATE TABLE airline_airport
@@ -95,5 +96,11 @@ CREATE TABLE airline_airport
     id INT AUTO_INCREMENT,
     airline_carrier VARCHAR(2) NOT NULL,
     airport_faa VARCHAR(3) NOT NULL,
-    PRIMARY KEY (id, airline_carrier, airport_faa)
+    PRIMARY KEY (id, airline_carrier, airport_faa),
+        CONSTRAINT `constr_airline_airport_airline_fk` 
+		FOREIGN KEY `airline_fk` (airline_carrier) REFERENCES airlines (carrier)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `constr_airline_airport_airport_fk` 
+		FOREIGN KEY `airport_fk` (airport_faa) REFERENCES airports (faa)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );

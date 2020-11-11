@@ -6,6 +6,12 @@ import numpy as np
 
 engine = create_engine('mysql+pymysql://root@localhost:8081/airport-analytics?charset=utf8mb4')
 
+# ------------------------- AIRPORTS -------------------------
+airports = pd.read_csv('src/static/airports.csv')
+
+airports.fillna(np.nan, inplace = True)
+
+airports.to_sql('airports', con=engine, if_exists='append', index = False)
 # ------------------------- WEATHER -------------------------
 weather = pd.read_csv('src/static/weather.csv')
 
@@ -21,13 +27,6 @@ airlines = pd.read_csv('src/static/airlines.csv')
 airlines.fillna(np.nan, inplace = True)
 
 airlines.to_sql('airlines', con=engine, if_exists='append', index = False)
-
-# ------------------------- AIRPORTS -------------------------
-airports = pd.read_csv('src/static/airports.csv')
-
-airports.fillna(np.nan, inplace = True)
-
-airports.to_sql('airports', con=engine, if_exists='append', index = False)
 
 # ------------------------- PLANES -------------------------
 planes = pd.read_csv('src/static/planes.csv')

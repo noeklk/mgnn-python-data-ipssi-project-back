@@ -65,10 +65,30 @@ def question4():
     order by COUNT(dest) ASC) derived_table
     LIMIT 10"""
 
+    question_4_3_1_query = """select * from
+    (select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
+    from flights AS f
+    JOIN planes p WHERE p.tailnum = f.tailnum
+    group by f.tailnum
+    order by COUNT(f.tailnum) DESC) derived_table
+    LIMIT 10"""
+
+    question_4_3_2_query = """select * from
+    (select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
+    from flights AS f
+    JOIN planes p WHERE p.tailnum = f.tailnum
+    group by f.tailnum
+    order by COUNT(f.tailnum) ASC) derived_table
+    LIMIT 10"""
+
     with engine.connect() as con:
         result_4_1 = con.execute(question_4_1_query).fetchall()
+
         result_4_2_1 = con.execute(question_4_2_1_query).fetchall()
         result_4_2_2 = con.execute(question_4_2_2_query).fetchall()
+
+        result_4_3_1 = con.execute(question_4_3_1_query).fetchall()
+        result_4_3_2 = con.execute(question_4_3_2_query).fetchall()
 
         json = jsonify(
             {
@@ -80,6 +100,12 @@ def question4():
 
                 'result_4_2_2_least': [dict(row) for row in result_4_2_2],
                 'query_4_2_2_least': question_4_2_2_query,
+
+                'result_4_3_1_most': [dict(row) for row in result_4_3_1],
+                'query_4_3_1_most': question_4_3_1_query,
+
+                'result_4_3_2_least': [dict(row) for row in result_4_3_2],
+                'query_4_3_2_least': question_4_3_2_query,
             })
 
         return json

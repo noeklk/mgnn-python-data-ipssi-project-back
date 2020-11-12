@@ -48,16 +48,6 @@ flights['arr_time'].replace(r'\s+', np.nan, regex=True, inplace=True)
 flights['dep_time'].replace(r'\s+', np.nan, regex=True, inplace=True)
 flights['dep_delay'].replace(r'\s+', np.nan, regex=True, inplace=True)
 
-#--------------------------------------------------AIRPORTS FAA
-airports_faa = []
-for i in airports['faa']:
-    airports_faa.append(i)
-flights = flights[flights.dest.isin(airports_faa)]
-#--------------------------------------------------PLANES TAILNUM
-planes_tailnum = []
-for i in planes['tailnum']:
-    planes_tailnum.append(i)
-#--------------------------------------------------
-flights = flights[(flights.dest.isin(airports_faa)) & flights.tailnum.isin(planes_tailnum)]
+flights = flights[(flights.dest.isin(airports['faa'])) & (flights.tailnum.isin(planes['tailnum']))]
 
 flights.to_sql('flights', con=engine, if_exists='append', index = False)

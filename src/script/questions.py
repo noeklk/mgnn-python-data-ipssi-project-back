@@ -41,44 +41,39 @@ def question3():
         return json_to_dict(result, question_3_query)
 
 def question4():
-    question_4_1_query = """select * from
-    (select origin AS airport_origin_faa, count(*) AS flights_count, air_p.name AS airport_name
+    question_4_1_query = """select origin AS airport_origin_faa, count(*) AS flights_count, air_p.name AS airport_name
     from flights
-    JOIN airports air_p WHERE air_p.faa = flights.origin
+    JOIN airports air_p ON air_p.faa = flights.origin
     group by origin
-    order by COUNT(origin) DESC) derived_table
+    order by COUNT(origin) DESC
     LIMIT 1"""
 
-    question_4_2_1_query = """select * from
-    (select dest AS airport_destination_faa, count(*) AS flights_count, air_p.name AS airport_name, air_p.tzone AS destination_tzone
+    question_4_2_1_query = """select dest AS airport_destination_faa, count(*) AS flights_count, air_p.name AS airport_name, air_p.tzone AS destination_tzone
     from flights
-    JOIN airports air_p WHERE air_p.faa = flights.dest
+    JOIN airports air_p ON air_p.faa = flights.dest
     group by dest
-    order by COUNT(dest) DESC) derived_table
+    order by COUNT(dest) DESC
     LIMIT 10"""
 
-    question_4_2_2_query = """select * from
-    (select dest AS airport_destination_faa, count(*) AS flights_count, air_p.name AS airport_name, air_p.tzone AS destination_tzone
+    question_4_2_2_query = """select dest AS airport_destination_faa, count(*) AS flights_count, air_p.name AS airport_name, air_p.tzone AS destination_tzone
     from flights
-    JOIN airports air_p WHERE air_p.faa = flights.dest
+    JOIN airports air_p ON air_p.faa = flights.dest
     group by dest
-    order by COUNT(dest) ASC) derived_table
+    order by COUNT(dest) ASC
     LIMIT 10"""
 
-    question_4_3_1_query = """select * from
-    (select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
+    question_4_3_1_query = """select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
     from flights AS f
-    JOIN planes p WHERE p.tailnum = f.tailnum
+    JOIN planes p ON p.tailnum = f.tailnum
     group by f.tailnum
-    order by COUNT(f.tailnum) DESC) derived_table
+    order by COUNT(f.tailnum) DESC
     LIMIT 10"""
 
-    question_4_3_2_query = """select * from
-    (select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
+    question_4_3_2_query = """select f.tailnum, count(*) AS flights_count, p.model AS plane_model, p.manufacturer AS plane_manufacturer
     from flights AS f
-    JOIN planes p WHERE p.tailnum = f.tailnum
+    JOIN planes p ON p.tailnum = f.tailnum
     group by f.tailnum
-    order by COUNT(f.tailnum) ASC) derived_table
+    order by COUNT(f.tailnum) ASC
     LIMIT 10"""
 
     with engine.connect() as con:
@@ -109,3 +104,34 @@ def question4():
             })
 
         return json
+
+def question5():
+    question_5_1_query = """select airlines.name AS airline_name, f.carrier AS airline_carrier_code, count(DISTINCT(f.dest)) AS dest_count
+    from flights AS f
+    JOIN airlines ON airlines.carrier = f.carrier
+    group by airlines.carrier
+    order by dest_count DESC"""
+
+    question_5_2_query = """select airlines.name AS airline_name, f.carrier AS airline_carrier_code, airports.name AS origin_airport_name, f.origin, count(distinct f.dest) as dest_count
+    from flights AS f
+    JOIN airlines ON airlines.carrier = f.carrier
+    JOIN airports ON airports.faa = f.origin
+    group by airlines.carrier, f.origin
+    order by dest_count desc"""
+
+
+    with engine.connect() as con:
+        result_5_1 = con.execute(question_5_1_query).fetchall()
+        result_5_2 = con.execute(question_5_2_query).fetchall()
+
+        json = jsonify(
+            {
+                'result_5_1': [dict(row) for row in result_5_1], 
+                'query_5_2': question_5_1_query,
+
+                'result_5_2': [dict(row) for row in result_5_2], 
+                'query_5_2': question_5_2_query,
+            })
+
+        return json
+

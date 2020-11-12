@@ -61,6 +61,7 @@ CREATE INDEX `origin_index` ON weather(`origin`);
 
 CREATE TABLE flights
 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     `year` SMALLINT,
     `month` TINYINT,
     `day` TINYINT,

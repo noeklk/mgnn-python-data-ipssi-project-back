@@ -34,7 +34,7 @@ def question2():
         return json_to_dict(result_2, question_2_query)
 
 def question3():
-    question_3_query = """SELECT COUNT(DISTINCT tzone) FROM airports WHERE dst = 'N' AND tzone LIKE '%%America%%';"""
+    question_3_query = """SELECT COUNT(DISTINCT tzone) AS tzone_count FROM airports WHERE dst = 'N' AND tzone LIKE '%%America%%';"""
     with engine.connect() as con:
         result = con.execute(question_3_query).fetchall()
 
@@ -135,3 +135,43 @@ def question5():
 
         return json
 
+def question6():
+    question_6_1_query = """SELECT count(*) AS flights_count
+    FROM flights
+    WHERE flights.dest IN ('IAH', 'HOU');"""
+
+    question_6_2_1_query = """SELECT COUNT(*) AS flights_count 
+    FROM flights 
+    JOIN airports airports_nyc ON airports_nyc.tzone = 'America/New_York' 
+    WHERE flights.origin = airports_nyc.faa AND flights.dest = 'SEA';"""
+
+    question_6_2_2_query = """SELECT COUNT(DISTINCT airlines.name) AS airlines_count
+    FROM airlines
+    JOIN flights ON flights.dest = 'SEA'
+    WHERE airlines.carrier = flights.carrier;"""
+
+    question_6_2_3_query = """SELECT COUNT(DISTINCT flights.tailnum) AS tailnum_count FROM flights WHERE flights.dest = 'SEA'"""
+
+
+    with engine.connect() as con:
+        result_6_1 = con.execute(question_6_1_query).fetchall()
+        result_6_2_1 = con.execute(question_6_2_1_query).fetchall()
+        result_6_2_2 = con.execute(question_6_2_2_query).fetchall()
+        result_6_2_3 = con.execute(question_6_2_3_query).fetchall()
+
+        json = jsonify(
+            {
+                'result_6_1': [dict(row) for row in result_6_1], 
+                'query_6_1': question_6_1_query,
+
+                'result_6_2_1': [dict(row) for row in result_6_2_1], 
+                'query_6_2_1': question_6_2_1_query,
+
+                'result_6_2_2': [dict(row) for row in result_6_2_2], 
+                'query_6_2_2': question_6_2_2_query,
+
+                'result_6_2_3': [dict(row) for row in result_6_2_3], 
+                'query_6_2_3': question_6_2_3_query,
+            })
+
+        return json

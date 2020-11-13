@@ -24,7 +24,7 @@ source ./venv/bin/activate (MAC/Linux)
 - `bash migrate-database.sh` (Alimente la base de données)
 
 ### Liens
-- [Redirection vers le git du front](https://github.com/noeklk/mgnn-python-data-ipssi-project-front)
+- [Redirection vers le github du front](https://github.com/noeklk/mgnn-python-data-ipssi-project-front)
 
 ## Credits & Licence
 29/05/2020 - GPL3 Licence (Open Source)
@@ -33,6 +33,6 @@ source ./venv/bin/activate (MAC/Linux)
 
 **Guillaume DEPRETZ**  - *Front-End & Back-End Developer Developer*
 
-**Nicolas AUBE**  - *Back-End Developer*  
+**Nicolas AUBE**  - *Front-End & Back-End Developer*    
 
 **Mohamed BOUROUCHE** - *Back-End Developer*

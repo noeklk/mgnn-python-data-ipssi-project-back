@@ -1,2 +1,2 @@
 #!/bin/bash
-python ./src/script/insert_data.py && echo "Migration réalisé avec succès"
+python ./src/script/import_data.py && echo "Migration réalisé avec succès"

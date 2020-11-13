@@ -16,7 +16,7 @@
 			crossorigin="anonymous"
 		/>
 
-		<title>Hello, world!</title>
+		<title>Python Flight Analytics API</title>
 	</head>
 	<body>
 		<div class="container">
@@ -26,6 +26,21 @@
 					<a href="{{ url_for(n[0]) }}">Question {{n[1]}}</a>
 				</li>
 				{% endfor %}
+				<li class="list-group-item">
+					<a href="{{ url_for('get_origin_to_dest_gps_data')}}"
+						>get_origin_to_dest_gps_data</a
+					>
+				</li>
+				<li class="list-group-item">
+					<a href="{{ url_for('get_airline_carrier_total_delay_in_hours')}}"
+						>get_airline_carrier_total_delay_in_hours</a
+					>
+				</li>
+				<li class="list-group-item">
+					<a href="{{ url_for('get_airport_total_delay_in_hours')}}"
+						>get_airport_total_delay_in_hours</a
+					>
+				</li>
 			</ul>
 		</div>
 		<!-- Optional JavaScript -->

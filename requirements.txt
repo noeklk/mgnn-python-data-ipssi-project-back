@@ -10,3 +10,4 @@ PyMySQL
 matplotlib
 sqlalchemy
 flask_cors
+simplejson

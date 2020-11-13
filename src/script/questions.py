@@ -5,6 +5,15 @@ engine = create_engine('mysql+pymysql://root@localhost:8081/airport-analytics?ch
 def json_to_dict(json_response, query):
     return jsonify({'result': [dict(row) for row in json_response], 'query': query})
 
+def question1():
+    f = open("mysql/init/init.sql", "r")
+    question_1_sql = """"""
+    with f as file:
+        question_1_sql = f"""{file.read()}"""
+        
+
+    return jsonify({'result': question_1_sql})
+
 def question2():
     question_2_query = """SELECT (
         SELECT COUNT(*)

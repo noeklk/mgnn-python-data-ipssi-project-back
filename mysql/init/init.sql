@@ -32,7 +32,6 @@ CREATE TABLE airports
     tzone VARCHAR(30)
 );
 
-
 CREATE TABLE weather
 (
     origin VARCHAR(3),
@@ -54,10 +53,10 @@ CREATE TABLE weather
     FOREIGN KEY origin_fk(origin) REFERENCES airports(faa)
 );
 
-CREATE INDEX `month_index` ON weather(`month`);
-CREATE INDEX `day_index` ON weather(`day`);
-CREATE INDEX `hour_index` ON weather(`hour`);
-CREATE INDEX `origin_index` ON weather(`origin`);
+CREATE INDEX `weather_month_index` ON weather(`month`);
+CREATE INDEX `weather_day_index` ON weather(`day`);
+CREATE INDEX `weather_hour_index` ON weather(`hour`);
+CREATE INDEX `weather_origin_index` ON weather(`origin`);
 
 CREATE TABLE flights
 (

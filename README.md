@@ -25,3 +25,14 @@ source ./venv/bin/activate (MAC/Linux)
 
 ### Liens
 - [Redirection vers le git du front](https://github.com/noeklk/mgnn-python-data-ipssi-project-front)
+
+## Credits & Licence
+29/05/2020 - GPL3 Licence (Open Source)
+
+**Noé ABDEL KALEK**  - *Front-End & Back-End Developer (Project Manager)*
+
+**Guillaume DEPRETZ**  - *Front-End & Back-End Developer Developer*
+
+**Nicolas AUBE**  - *Back-End Developer*  
+
+**Mohamed BOUROUCHE** - *Back-End Developer*
